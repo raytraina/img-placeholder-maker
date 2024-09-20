@@ -1,0 +1,19 @@
+{
+  "name": "image_processing_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "author": "RAT",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "jasmine": "^5.3.0",
+    "typescript": "^5.6.2"
+  }
+}
