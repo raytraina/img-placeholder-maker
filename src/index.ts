@@ -1,11 +1,10 @@
 import express from 'express';
+import routes from './routes/index';
 
 const app = express();
 const port = 3001;
 
-app.get('/api', (req, resp) => {
-    resp.send('Status: 200 OK');
-});
+app.use('/', routes);
 
 app.listen(port, () => {
     console.log('Server started');
