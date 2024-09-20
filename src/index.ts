@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
             <form action="/api/images" method="GET">
                 <label for="filename">Filename:</label><br/>
                 <select name="filename" id="filename">
-                    <option value="encendaport">encendaport</option>
+                    <option value="encenadaport">encenadaport</option>
                     <option value="fjord">fjord</option>
                     <option value="icelandwaterfall">icelandwaterfall</option>
                     <option value="palmtunnel">palmtunnel</option>

@@ -1,4 +1,6 @@
 node_modules
 dist
+*thumb*
 package-lock.json
 *DNU*
+*DS_Store*
