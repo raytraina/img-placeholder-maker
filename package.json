@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "test": "jasmine"
+    "start": "nodemon src/index.ts",
+    "test": "jasmine",
+    "build": "npx tsc"
   },
   "author": "RAT",
   "license": "ISC",
@@ -13,7 +15,10 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/node": "^22.5.5",
     "jasmine": "^5.3.0",
+    "nodemon": "^3.1.6",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   }
 }
