@@ -1,7 +1,11 @@
-import { makeResizedImage } from "../utilities/resizer";
+import { makeResizedImage } from '../utilities/resizer';
 
-// handle basic file test
-it('expect makeResizedImage("testFile", 300, 500) to be undefined', () => {
+describe('Test resizer functions', async () => {
+  it('expect makeResizedImage("testFile", 300, 500) to be undefined', () => {
     // TODO - add check that file created in folder
-    expect(makeResizedImage("testFile", 300, 500)).toBeUndefined;
+    const returnedBool = expect(
+      makeResizedImage('testFile', 300, 500),
+    ).toBeUndefined;
+    return returnedBool;
+  });
 });
