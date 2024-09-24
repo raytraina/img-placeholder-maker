@@ -14,12 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.21.0",
+    "formidable": "^3.5.1",
     "fs": "^0.0.1-security",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.10.0",
     "@types/express": "^4.17.21",
+    "@types/formidable": "^3.4.5",
     "@types/node": "^22.5.5",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",

@@ -2,49 +2,60 @@
 import sharp from 'sharp';
 import { promises as fsPromises } from 'fs';
 
-export const resizeToNewFile = (inFile: any, x: number, y: number, filename: string) => {
-//   const outFile = sharp(inFile)
-//     .resize(x, y)
-//     .toFile(`test_${x}x${y}.jpg`, (err: Error) => {
-//       console.log(err);
-//     });
-    x = Number(x);
-    y = Number(y);
-    // (x as unknown) as number;
-    // (y as unknown) as number;
+// async function to kick off image processing
+export const makeResizedImage = async (
+  inFilename: string,
+  x: number,
+  y: number,
+) => {
+  // Grab original full size file
+  let _File;
+  try {
+    // handle primary file format jpg
+    _File = await fsPromises.readFile(`./src/assets/full/${inFilename}.jpg`);
+  } catch (err) {
+    console.log(err);
+    // handle jpegs
+    try {
+      _File = await fsPromises.readFile(`./src/assets/full/${inFilename}.jpeg`);
+    } catch (innererr) {
+      console.log(innererr);
+      // handle pngs
+      _File = await fsPromises.readFile(`./src/assets/full/${inFilename}.png`);
+    }
+  }
 
-    let outfileConfirmation = sharp(inFile)
-                                .rotate()
-                                .resize(x, y)
-                                .jpeg({ mozjpeg: true })
-                                .toBuffer()
-                                .then( async(data) => { 
-                                    const myFile = await fsPromises.writeFile(`./src/assets/thumb/${filename}_${x}x${y}.jpg`, data);
-                                })
-                                .catch( err => { console.log(err) });
+  // Call helper to create resized image with sharp and store
+  const resized = await resizeToNewFile(_File, x, y, inFilename);
+  return resized;
+};
 
-//   console.log(outFile);
+export const resizeToNewFile = (
+  inFile: object,
+  x: number,
+  y: number,
+  filename: string,
+) => {
+  x = Number(x);
+  y = Number(y);
+  // (x as unknown) as number;
+  // (y as unknown) as number;
+
+  const outfileConfirmation = sharp(inFile)
+    .rotate()
+    .resize(x, y)
+    .jpeg({ mozjpeg: true })
+    .toBuffer()
+    .then(async (data) => {
+      // use filesystem module to save to thumb folder
+      const myFile = await fsPromises.writeFile(
+        `./src/assets/thumb/${filename}_${x}x${y}.jpg`,
+        data,
+      );
+      return myFile;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   return outfileConfirmation;
-  // TODO: use filesystem module to save to thumb folder
 };
-
-export const checkForExisting = async (inFilename: string, x: number, y: number) => {
-  // TODO: use filesystem to check if file already exists in the thumb folder at requested size
-    const myFile = await fsPromises.readFile(`./src/assets/full/${inFilename}.jpg`);
-    // myFile.readFile( );
-    // console.log(myFile);
-    let resized = resizeToNewFile(myFile, x, y, inFilename);
-    return resized;
-
-    // WORKING!
-    // const myFile = await fsPromises.open(`./src/assets/thumb/${inFile}_${x}x${y}.jpg`, 'a+');
-
-};
-
-export const saveNewThumb = (newFile: string): void => {
-  // TODO: use fs module to store image to specified folder
-  console.log(newFile);
-};
-
-// let resizeTester = () => {};
-
