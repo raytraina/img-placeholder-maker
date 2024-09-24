@@ -8,26 +8,30 @@ export const makeResizedImage = async (
   x: number,
   y: number,
 ) => {
-  // Grab original full size file
-  let _File;
   try {
-    // handle primary file format jpg
-    _File = await fsPromises.readFile(`./src/assets/full/${inFilename}.jpg`);
-  } catch (err) {
-    console.log(err);
-    // handle jpegs
+    // Grab original full size file
+    let _File;
     try {
-      _File = await fsPromises.readFile(`./src/assets/full/${inFilename}.jpeg`);
-    } catch (innererr) {
-      console.log(innererr);
-      // handle pngs
-      _File = await fsPromises.readFile(`./src/assets/full/${inFilename}.png`);
+      // handle primary file format jpg
+      _File = await fsPromises.readFile(`./src/assets/full/${inFilename}.jpg`);
+    } catch (err) {
+      console.log(err);
+      // handle jpegs
+      try {
+        _File = await fsPromises.readFile(`./src/assets/full/${inFilename}.jpeg`);
+      } catch (innererr) {
+        console.log(innererr);
+        // handle pngs
+        _File = await fsPromises.readFile(`./src/assets/full/${inFilename}.png`);
+      }
     }
-  }
 
-  // Call helper to create resized image with sharp and store
-  const resized = await resizeToNewFile(_File, x, y, inFilename);
-  return resized;
+    // Call helper to create resized image with sharp and store
+    const resized = await resizeToNewFile(_File, x, y, inFilename);
+    return resized;
+  } catch(finalerr) {
+    console.log(`Check that your file is named correctly and try again.`);
+  }
 };
 
 export const resizeToNewFile = (
